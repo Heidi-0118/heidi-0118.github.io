@@ -1,298 +1,72 @@
 <!DOCTYPE html>
-<html lang="zh-Hant">
+<html lang="zh-TW">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>哆啦A夢的小禮物</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <style>
-    @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap');
-
-    body {
-      font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
-      background: linear-gradient(135deg, #e0f2fe 0%, #bae6fd 50%, #7dd3fc 100%);
-    }
-
-    /* 哆啦A夢頭部設計 */
-    .doraemon-head {
-      width: 320px;
-      height: 320px;
-      background: #00a0e9;
-      border: 5px solid #1e293b;
-      border-radius: 50%;
-      position: relative;
-      box-shadow: 0 20px 35px -10px rgba(0, 160, 233, 0.4), inset 0 -10px 20px rgba(0, 0, 0, 0.15);
-      margin: 0 auto;
-    }
-
-    /* 白色臉龐 */
-    .doraemon-face {
-      width: 270px;
-      height: 230px;
-      background: #ffffff;
-      border: 4px solid #1e293b;
-      border-radius: 50% 50% 45% 45% / 55% 55% 45% 45%;
-      position: absolute;
-      bottom: 8px;
-      left: 50%;
-      transform: translateX(-50%);
-    }
-
-    /* 雙眼 */
-    .eye {
-      width: 62px;
-      height: 76px;
-      background: #ffffff;
-      border: 4px solid #1e293b;
-      border-radius: 50%;
-      position: absolute;
-      top: -38px;
-      z-index: 10;
-      box-shadow: 0 4px 6px rgba(0,0,0,0.05);
-    }
-
-    .eye.left { left: 72px; }
-    .eye.right { right: 72px; }
-
-    /* 瞳孔與高光 */
-    .pupil {
-      width: 18px;
-      height: 24px;
-      background: #1e293b;
-      border-radius: 50%;
-      position: absolute;
-      bottom: 16px;
-    }
-
-    .eye.left .pupil { right: 12px; }
-    .eye.right .pupil { left: 12px; }
-
-    .pupil-glare {
-      width: 6px;
-      height: 8px;
-      background: #ffffff;
-      border-radius: 50%;
-      position: absolute;
-      top: 4px;
-      right: 3px;
-    }
-
-    /* 精緻紅鼻子（超連結點擊直接跳轉） */
-    .nose {
-      width: 44px;
-      height: 44px;
-      background: radial-gradient(circle at 35% 35%, #ff5252, #e60012 60%, #990000 100%);
-      border: 4px solid #1e293b;
-      border-radius: 50%;
-      position: absolute;
-      top: 24px;
-      left: 50%;
-      transform: translateX(-50%);
-      z-index: 20;
-      cursor: pointer;
-      box-shadow: 0 6px 12px rgba(230, 0, 18, 0.4);
-      transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
-      animation: nosePulse 2s infinite ease-in-out;
-      display: block;
-      text-decoration: none;
-    }
-
-    .nose-glare {
-      width: 12px;
-      height: 12px;
-      background: rgba(255, 255, 255, 0.85);
-      border-radius: 50%;
-      position: absolute;
-      top: 6px;
-      left: 8px;
-    }
-
-    .nose:hover {
-      transform: translateX(-50%) scale(1.22);
-      box-shadow: 0 0 25px rgba(230, 0, 18, 0.85), 0 8px 15px rgba(0,0,0,0.2);
-    }
-
-    .nose:active {
-      transform: translateX(-50%) scale(0.92);
-    }
-
-    @keyframes nosePulse {
-      0%, 100% { box-shadow: 0 0 0 0 rgba(230, 0, 18, 0.5); }
-      50% { box-shadow: 0 0 0 14px rgba(230, 0, 18, 0); }
-    }
-
-    /* 鼻子下方人中直線 */
-    .nose-line {
-      width: 4px;
-      height: 75px;
-      background: #1e293b;
-      position: absolute;
-      top: 64px;
-      left: 50%;
-      transform: translateX(-50%);
-      z-index: 5;
-    }
-
-    /* 嘴巴微笑弧線 */
-    .mouth {
-      width: 200px;
-      height: 95px;
-      border-bottom: 4px solid #1e293b;
-      border-radius: 0 0 100px 100px;
-      position: absolute;
-      top: 44px;
-      left: 50%;
-      transform: translateX(-50%);
-      z-index: 4;
-    }
-
-    /* 白色鬍鬚 */
-    .whisker {
-      height: 3.5px;
-      background: #1e293b;
-      position: absolute;
-      border-radius: 2px;
-      z-index: 6;
-    }
-
-    .whisker.left-top { width: 60px; left: 10px; top: 52px; transform: rotate(10deg); }
-    .whisker.left-middle { width: 62px; left: 8px; top: 72px; transform: rotate(0deg); }
-    .whisker.left-bottom { width: 60px; left: 10px; top: 92px; transform: rotate(-10deg); }
-
-    .whisker.right-top { width: 60px; right: 10px; top: 52px; transform: rotate(-10deg); }
-    .whisker.right-middle { width: 62px; right: 8px; top: 72px; transform: rotate(0deg); }
-    .whisker.right-bottom { width: 60px; right: 10px; top: 92px; transform: rotate(10deg); }
-
-    /* 紅色領巾與黃金鈴鐺 */
-    .collar-container {
-      position: absolute;
-      bottom: -20px;
-      left: 50%;
-      transform: translateX(-50%);
-      z-index: 30;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
-
-    .collar {
-      width: 230px;
-      height: 22px;
-      background: #e60012;
-      border: 4px solid #1e293b;
-      border-radius: 12px;
-      box-shadow: 0 4px 6px rgba(0,0,0,0.15);
-    }
-
-    .bell {
-      width: 42px;
-      height: 42px;
-      background: radial-gradient(circle at 35% 35%, #fff176, #fbc02d 70%, #f57f17 100%);
-      border: 3.5px solid #1e293b;
-      border-radius: 50%;
-      position: relative;
-      margin-top: -12px;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-    }
-
-    .bell-line-1 {
-      width: 100%;
-      height: 3px;
-      background: #1e293b;
-      position: absolute;
-      top: 12px;
-    }
-
-    .bell-hole {
-      width: 10px;
-      height: 10px;
-      background: #1e293b;
-      border-radius: 50%;
-      position: absolute;
-      top: 20px;
-      left: 50%;
-      transform: translateX(-50%);
-    }
-
-    .bell-line-2 {
-      width: 3px;
-      height: 10px;
-      background: #1e293b;
-      position: absolute;
-      top: 26px;
-      left: 50%;
-      transform: translateX(-50%);
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Byejack 小禮物</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @keyframes pulse-glow {
+            0%, 100% {
+                transform: scale(1);
+                box-shadow: 0 0 15px rgba(249, 115, 22, 0.8), 0 0 30px rgba(249, 115, 22, 0.4);
+            }
+            50% {
+                transform: scale(1.15);
+                box-shadow: 0 0 25px rgba(249, 115, 22, 1), 0 0 50px rgba(249, 115, 22, 0.7);
+            }
+        }
+        .hotspot-glow {
+            animation: pulse-glow 2s infinite ease-in-out;
+        }
+    </style>
 </head>
-<body class="min-h-screen flex flex-col items-center justify-center p-4">
+<body class="bg-[#0c0a09] text-amber-50 min-h-screen flex flex-col items-center justify-center p-4 selection:bg-amber-500 selection:text-black">
 
-  <!-- 主體互動卡片 -->
-  <div class="bg-white/90 backdrop-blur-md p-8 md:p-10 rounded-3xl shadow-2xl max-w-lg w-full text-center border border-white/50">
-    
-    <div class="mb-6">
-      <span class="inline-block bg-sky-100 text-sky-800 font-bold text-xs px-3 py-1.5 rounded-full uppercase tracking-wider mb-2">
-        🎁 互動小驚喜
-      </span>
-      <h1 class="text-2xl md:text-3xl font-extrabold text-slate-800 tracking-tight">
-        按下鼻子馬上送你一份小禮物
-      </h1>
-      <p class="text-slate-600 mt-2 text-sm md:text-base">
-        快點擊哆啦A夢的 <span class="text-red-500 font-bold">紅色鼻子</span> 吧！
-      </p>
-    </div>
+    <!-- 頂部提示文字 -->
+    <header class="mb-6 text-center">
+        <h1 class="text-xl sm:text-2xl md:text-3xl font-black tracking-wider text-amber-400 drop-shadow-[0_2px_10px_rgba(245,158,11,0.4)]">
+            按下Byejack老師的手指即可獲得小禮物
+        </h1>
+    </header>
 
-    <!-- 精緻還原的哆啦A夢畫布 -->
-    <div class="py-6 my-2 relative select-none">
-      <div class="doraemon-head">
-        <div class="doraemon-face">
-          <!-- 雙眼與高光 -->
-          <div class="eye left">
-            <div class="pupil"><div class="pupil-glare"></div></div>
-          </div>
-          <div class="eye right">
-            <div class="pupil"><div class="pupil-glare"></div></div>
-          </div>
-
-          <!-- 關鍵：點擊紅鼻子直接跳轉 YouTube (指定 1分36秒 = 96秒) -->
-          <a href="https://youtu.be/jzYuhnJfCl8?si=vSxhxYHfOrTMfaaG&t=96" target="_blank" rel="noopener noreferrer" class="nose" title="領取你的小禮物！">
-            <div class="nose-glare"></div>
-          </a>
-
-          <!-- 人中線與嘴巴 -->
-          <div class="nose-line"></div>
-          <div class="mouth"></div>
-
-          <!-- 六根鬍鬚 -->
-          <div class="whisker left-top"></div>
-          <div class="whisker left-middle"></div>
-          <div class="whisker left-bottom"></div>
-          <div class="whisker right-top"></div>
-          <div class="whisker right-middle"></div>
-          <div class="whisker right-bottom"></div>
+    <!-- 圖片主體與熱區容器 -->
+    <main class="relative inline-block max-w-md w-full rounded-2xl overflow-hidden shadow-[0_0_50px_rgba(194,65,12,0.3)] border-2 border-amber-600/40 bg-black">
+        <!-- 透過遠端/Base64引入，確保打開絕對看得到圖 -->
+        <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=800&auto=format&fit=crop" id="bj-img" alt="Byejack" class="w-full h-auto block select-none pointer-events-none" style="display:none;">
+        
+        <!-- 這裡我們使用你提供的圖片作為背景直接渲染，或用 Canvas 確保 100% 顯示 -->
+        <div id="image-container" class="w-full flex justify-center bg-black">
+            <!-- 確保你的 bj.jpg 存在同資料夾，若要更簡單，直接用下面這行 -->
         </div>
 
-        <!-- 紅領巾與黃金鈴鐺 -->
-        <div class="collar-container">
-          <div class="collar"></div>
-          <div class="bell">
-            <div class="bell-line-1"></div>
-            <div class="bell-hole"></div>
-            <div class="bell-line-2"></div>
-          </div>
-        </div>
-      </div>
-    </div>
+        <script>
+            // 自動帶入你上傳的圖片畫面的 Base64 或本地路徑備援
+            const imgElement = document.createElement('img');
+            imgElement.src = 'bj.jpg';
+            imgElement.className = 'w-full h-auto block select-none pointer-events-none';
+            imgElement.onerror = function() {
+                // 如果同資料夾找不到 bj.jpg，自動改用替代預覽防破圖
+                this.src = 'data:image/svg+xml;charset=UTF-8,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22400%22 height=%22400%22%3E%3Crect width=%22100%25%22 height=%22100%25%22 fill=%22%23111%22/%3E%3Ctext x=%2250%25%22 y=%2250%25%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 fill=%22%23f59e0b%22 font-family=%22sans-serif%22 font-size=%2216%22%3E請將 bj.jpg 與網頁放在同資料夾%3C/text%3E%3C/svg%3E';
+            };
+            document.getElementById('image-container').appendChild(imgElement);
+        </script>
 
-    <!-- 底部輔助按鈕 -->
-    <div class="mt-8">
-      <a href="https://youtu.be/jzYuhnJfCl8?si=vSxhxYHfOrTMfaaG&t=96" target="_blank" rel="noopener noreferrer" class="w-full bg-red-500 hover:bg-red-600 active:scale-95 text-white font-bold py-3 px-6 rounded-2xl shadow-lg shadow-red-500/30 transition duration-200 flex items-center justify-center gap-2">
-        <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
-        直接領取小禮物
-      </a>
-    </div>
+        <!-- 食指點擊熱區 (定位在食指位置) -->
+        <a href="https://youtu.be/2JQNP-cwZUI?si=pmZysyaMgz1NMDS5" 
+           target="_blank" 
+           rel="noopener noreferrer"
+           title="按下獲得小禮物"
+           class="absolute z-10 block rounded-full hotspot-glow cursor-pointer transition-transform hover:scale-125"
+           style="top: 45.5%; left: 33.2%; width: 42px; height: 42px; background: radial-gradient(circle, rgba(251,191,36,0.9) 0%, rgba(234,88,12,0.6) 60%, rgba(0,0,0,0) 100%);">
+            
+            <span class="absolute inset-2 bg-amber-300 rounded-full opacity-80 animate-ping"></span>
+        </a>
+    </main>
 
-  </div>
+    <footer class="mt-6 text-xs text-amber-200/50 tracking-widest uppercase">
+        Byejack Official Event
+    </footer>
 
 </body>
 </html>
